@@ -7,7 +7,9 @@
     <style>
         :root {
             --primary: #1a365d;
+            --primary-dark: #0f172a;
             --accent: #c59b27;
+            --accent-hover: #b0881e;
             --bg-light: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #2d3748;
@@ -106,6 +108,117 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Page Styling */
+        .home-hero {
+            text-align: center;
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 2rem;
+        }
+
+        .home-hero h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .home-hero p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .home-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 850px) {
+            .home-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .home-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        .home-card .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .home-card h3 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .home-card p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .home-footer {
+            background: var(--primary-dark);
+            color: #f1f5f9;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .home-footer h3 {
+            color: #fef08a;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .home-footer p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+        }
+
+        .home-footer .footer-copyright {
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.85rem;
+            color: #94a3b8;
         }
 
         .section-title {
@@ -220,19 +333,75 @@
     </header>
 
     <nav>
-        <button class="tab-btn active" onclick="openTab(event, 'antipasti')">Antipasti</button>
-        <button class="tab-btn" onclick="openTab(event, 'primi')">Primi</button>
-        <button class="tab-btn" onclick="openTab(event, 'secondi')">Secondi & Contorni</button>
-        <button class="tab-btn" onclick="openTab(event, 'pizze')">Pizze</button>
-        <button class="tab-btn" onclick="openTab(event, 'vini-bevande')">Vini & Bevande</button>
-        <button class="tab-btn" onclick="openTab(event, 'dessert')">Dessert</button>
-        <button class="tab-btn" onclick="openTab(event, 'info')">Info & Allergeni</button>
+        <button class="tab-btn active" data-tab="home" onclick="openTabByName('home')">Home</button>
+        <button class="tab-btn" data-tab="antipasti" onclick="openTabByName('antipasti')">Antipasti</button>
+        <button class="tab-btn" data-tab="primi" onclick="openTabByName('primi')">Primi</button>
+        <button class="tab-btn" data-tab="secondi" onclick="openTabByName('secondi')">Secondi & Contorni</button>
+        <button class="tab-btn" data-tab="pizze" onclick="openTabByName('pizze')">Pizze</button>
+        <button class="tab-btn" data-tab="vini-bevande" onclick="openTabByName('vini-bevande')">Vini & Bevande</button>
+        <button class="tab-btn" data-tab="dessert" onclick="openTabByName('dessert')">Dessert</button>
+        <button class="tab-btn" data-tab="info" onclick="openTabByName('info')">Info & Allergeni</button>
     </nav>
 
     <div class="container">
 
+        <!-- HOME -->
+        <div id="home" class="tab-content active">
+            <div class="home-hero">
+                <h2>Benvenuti al Soffio di Vento</h2>
+                <p>Seleziona una sezione dal menù per scoprire le nostre specialità di mare, di terra e le nostre deliziose pizze.</p>
+            </div>
+
+            <div class="home-grid">
+                <div class="home-card" onclick="openTabByName('antipasti')">
+                    <div class="card-icon">🍤</div>
+                    <h3>Antipasti</h3>
+                    <p>Antipasti di mare freschi e sfiziosi antipasti di terra</p>
+                </div>
+
+                <div class="home-card" onclick="openTabByName('primi')">
+                    <div class="card-icon">🍝</div>
+                    <h3>Primi</h3>
+                    <p>Primi piatti tradizionali sardi e specialità di pesce</p>
+                </div>
+
+                <div class="home-card" onclick="openTabByName('secondi')">
+                    <div class="card-icon">🥩</div>
+                    <h3>Secondi & Contorni</h3>
+                    <p>Grigliate di pesce, carni selezionate e contorni di stagione</p>
+                </div>
+
+                <div class="home-card" onclick="openTabByName('pizze')">
+                    <div class="card-icon">🍕</div>
+                    <h3>Pizze</h3>
+                    <p>Pizze tradizionali, speciali, senza glutine e opzioni AD</p>
+                </div>
+
+                <div class="home-card" onclick="openTabByName('vini-bevande')">
+                    <div class="card-icon">🍷</div>
+                    <h3>Vini & Bevande</h3>
+                    <p>Selezione Vigneti Neapolis, vini locali e bevande fresche</p>
+                </div>
+
+                <div class="home-card" onclick="openTabByName('dessert')">
+                    <div class="card-icon">🍰</div>
+                    <h3>Dessert</h3>
+                    <p>Seadas artigianali, semifreddi, dolci al cucchiaio e gelati</p>
+                </div>
+            </div>
+
+            <div class="home-footer">
+                <h3>Hotel Ristorante Pizzeria Soffio di Vento</h3>
+                <p>📍 Passo, Via Genne Frongia, 09031 Arbus VS</p>
+                <p>📞 Telefono: 070 975 6022</p>
+                <div class="footer-copyright">
+                    © Tutti i diritti riservati - Hotel Ristorante Pizzeria Soffio di Vento
+                </div>
+            </div>
+        </div>
+
         <!-- ANTIPASTI -->
-        <div id="antipasti" class="tab-content active">
+        <div id="antipasti" class="tab-content">
             <h2 class="section-title">Antipasti di Mare</h2>
             <div class="menu-grid">
                 <div class="menu-item"><div class="item-header"><span class="item-name">Cocktail di Gamberi in salsa Rosa</span><span class="item-price">€ 13,00</span></div></div>
@@ -474,18 +643,26 @@
     </div>
 
     <script>
-        function openTab(evt, tabName) {
+        function openTabByName(tabName) {
             let i, tabcontent, tablinks;
+            
+            // Nascondi tutti i contenuti
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].classList.remove("active");
             }
+            
+            // Rimuovi classe active da tutti i bottoni
             tablinks = document.getElementsByClassName("tab-btn");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].classList.remove("active");
+                if (tablinks[i].getAttribute("data-tab") === tabName) {
+                    tablinks[i].classList.add("active");
+                }
             }
+            
+            // Mostra il tab desiderato
             document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
