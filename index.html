@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Ristorante Pizzeria Soffio di Vento - Menù</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #c59b27;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-style: italic;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+            color: #fef08a;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            overflow-x: auto;
+            background-color: var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            scrollbar-width: none;
+        }
+
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: #e2e8f0;
+            padding: 1rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        nav button.active {
+            color: #fef08a;
+            border-bottom-color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.4rem;
+            margin: 1.5rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+
+        @media (min-width: 640px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .item-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #1e293b;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.05rem;
+            white-space: nowrap;
+        }
+
+        .item-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+
+        .note-box {
+            background-color: #fefce8;
+            border-left: 4px solid var(--accent);
+            padding: 0.8rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #713f12;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .allergen-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .allergen-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .allergen-list li {
+            background: white;
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-size: 0.88rem;
+        }
+
+        .coperto-tag {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Soffio di Vento</h1>
+        <p>Hotel • Ristorante • Pizzeria</p>
+    </header>
+
+    <nav>
+        <button class="tab-btn active" onclick="openTab(event, 'antipasti')">Antipasti</button>
+        <button class="tab-btn" onclick="openTab(event, 'primi')">Primi</button>
+        <button class="tab-btn" onclick="openTab(event, 'secondi')">Secondi & Contorni</button>
+        <button class="tab-btn" onclick="openTab(event, 'pizze')">Pizze</button>
+        <button class="tab-btn" onclick="openTab(event, 'vini-bevande')">Vini & Bevande</button>
+        <button class="tab-btn" onclick="openTab(event, 'dessert')">Dessert</button>
+        <button class="tab-btn" onclick="openTab(event, 'info')">Info & Allergeni</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- ANTIPASTI -->
+        <div id="antipasti" class="tab-content active">
+            <h2 class="section-title">Antipasti di Mare</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Cocktail di Gamberi in salsa Rosa</span><span class="item-price">€ 13,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Insalatina di mare Nostrana</span><span class="item-price">€ 13,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Croccante di Polpo</span><span class="item-price">€ 13,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Polpo olio e Limone con Patate</span><span class="item-price">€ 13,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Sedano e Bottarga</span><span class="item-price">€ 13,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Zuppa di Cozze</span><span class="item-price">€ 13,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Degustazione di Antipasti Misti di Mare del Giorno</span><span class="item-price">€ 20,00</span></div></div>
+            </div>
+
+            <h2 class="section-title">Antipasti di Terra</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Degustazione di Salumi e Formaggio locale</span><span class="item-price">€ 15,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Misto Formaggi</span><span class="item-price">€ 12,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Prosciutto e Melone</span><span class="item-price">€ 10,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Formaggio Arrosto</span><span class="item-price">€ 8,00</span></div></div>
+            </div>
+        </div>
+
+        <!-- PRIMI -->
+        <div id="primi" class="tab-content">
+            <h2 class="section-title">Primi Piatti di Mare</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Linguine allo Scoglio</span><span class="item-price">€ 16,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Linguine Cozze Arselle e Datterino</span><span class="item-price">€ 16,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Spaghetti Arselle e Bottarga</span><span class="item-price">€ 16,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Fregola ai Frutti di Mare</span><span class="item-price">€ 16,00</span></div></div>
+            </div>
+
+            <h2 class="section-title">Primi Piatti di Terra</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Malloreddus alla Campidanese</span><span class="item-price">€ 13,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Ravioli di Ricotta e Spinaci al Pomodoro</span><span class="item-price">€ 13,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Culurgiones Burro e Salvia</span><span class="item-price">€ 12,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Spaghetti al Pomodoro</span><span class="item-price">€ 10,00</span></div></div>
+            </div>
+        </div>
+
+        <!-- SECONDI E CONTORNI -->
+        <div id="secondi" class="tab-content">
+            <h2 class="section-title">Secondi di Pesce</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">Grigliata mista di Pesce</span><span class="item-price">€ 27,00</span></div>
+                    <div class="item-desc">Pesce, seppia, gambero e scampo</div>
+                </div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Seppia alla griglia</span><span class="item-price">€ 14,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Calamaro alla Griglia</span><span class="item-price">€ 15,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Calamari fritti con verdure croccanti</span><span class="item-price">€ 15,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Fritto misto Mare</span><span class="item-price">€ 18,00</span></div></div>
+            </div>
+
+            <h2 class="section-title">Secondi di Carne</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Costata di Manzo</span><span class="item-price">€ 20,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Costata di Cavallo</span><span class="item-price">€ 20,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Filetto di Manzo Grill</span><span class="item-price">€ 22,00</span></div></div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">Tagliata di Manzo</span><span class="item-price">€ 20,00</span></div>
+                    <div class="item-desc">Rucola e Grana o Gorgonzola e Noci</div>
+                </div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Cotoletta alla Milanese</span><span class="item-price">€ 10,00</span></div></div>
+            </div>
+            <div class="note-box">
+                * <strong>Maialetto o Capretto al forno</strong> disponibile su prenotazione.
+            </div>
+
+            <h2 class="section-title">Contorni</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Pinzimonio di Verdure</span><span class="item-price">€ 4,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Insalata Mista</span><span class="item-price">€ 4,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Insalata Caprese</span><span class="item-price">€ 10,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Verdure alla Griglia</span><span class="item-price">€ 6,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Patatine Fritte</span><span class="item-price">€ 4,00</span></div></div>
+            </div>
+        </div>
+
+        <!-- PIZZE -->
+        <div id="pizze" class="tab-content">
+            <h2 class="section-title">Le Nostre Pizze</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Arburesa</span><span class="item-price">€ 9,00</span></div><div class="item-desc">s. pomodoro, mozzarella, salsiccia s., funghi</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Americana</span><span class="item-price">€ 9,00</span></div><div class="item-desc">s. pomodoro, mozzarella, wurstel, patate fritte</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Bottarga e rucola</span><span class="item-price">€ 13,00</span></div><div class="item-desc">salsa di pomodoro, mozzarella, rucola e bottarga</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Calzone</span><span class="item-price">€ 10,00</span></div><div class="item-desc">s. pomodoro, mozzarella, prosc. cotto, funghi</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Caprese</span><span class="item-price">€ 9,50</span></div><div class="item-desc">s. pomodoro, mozzarella, pomodorini, mozzarella a fette, basilico</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Carlofortina</span><span class="item-price">€ 11,00</span></div><div class="item-desc">s. pomodoro, mozzarella, tonno, pesto, pomodorini</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Crudo rucola e grana</span><span class="item-price">€ 11,00</span></div><div class="item-desc">s. pomodoro, mozzarella, prosc. crudo, rucola, grana</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Diavola</span><span class="item-price">€ 10,00</span></div><div class="item-desc">s. pomodoro, mozzarella, sals. secca, peperoni e olive</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Fantasia del pizzaiolo</span><span class="item-price">€ 12,00</span></div><div class="item-desc">s. pomodoro, mozzarella, ingredienti a sorpresa</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Focaccia</span><span class="item-price">€ 4,50</span></div><div class="item-desc">Olio, sale, origano</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Frutti di mare</span><span class="item-price">€ 19,00</span></div><div class="item-desc">s. pomodoro, mozzarella, frutti di mare</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Gamberi e Zucchine</span><span class="item-price">€ 12,00</span></div><div class="item-desc">salsa di pomodoro, mozzarella, gamberi e zucchine</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Inferno</span><span class="item-price">€ 9,00</span></div><div class="item-desc">s. pomodoro, mozzarella, sals. secca, cipolle, olio piccante</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Margherita</span><span class="item-price">€ 6,00</span></div><div class="item-desc">s. pomodoro, mozzarella</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Marinara</span><span class="item-price">€ 5,00</span></div><div class="item-desc">s. pomodoro, basilico, aglio</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Napoli</span><span class="item-price">€ 7,00</span></div><div class="item-desc">s. pomodoro, mozzarella, capperi, acciughe</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Orchidea</span><span class="item-price">€ 9,00</span></div><div class="item-desc">s. pomodoro, mozzarella, prosc. cotto, prezzemolo, grana</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Parmigiana</span><span class="item-price">€ 9,50</span></div><div class="item-desc">s. pomodoro, mozzarella, melanzane, parmigiano</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Patatosa</span><span class="item-price">€ 8,00</span></div><div class="item-desc">s. pomodoro, mozzarella, patatine fritte</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Prosciutto</span><span class="item-price">€ 8,00</span></div><div class="item-desc">s. pomodoro, mozzarella, prosc. cotto</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Provola, guanciale e peperoni</span><span class="item-price">€ 11,00</span></div><div class="item-desc">salsa di pomodoro, mozzarella, provola, guanciale e peperoni</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Ricci di mare</span><span class="item-price">€ 16,00</span></div><div class="item-desc">s. pomodoro, mozzarella, ricci</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Ricci e porcini</span><span class="item-price">€ 18,00</span></div><div class="item-desc">salsa di pomodoro, mozzarella, ricci e porcini</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Salsiccia</span><span class="item-price">€ 8,50</span></div><div class="item-desc">s. pomodoro, mozzarella, sals. secca</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Sarda</span><span class="item-price">€ 9,50</span></div><div class="item-desc">s. pomodoro, mozzarella, pecorino, sals. secca</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Speedy</span><span class="item-price">€ 9,00</span></div><div class="item-desc">s. pomodoro, mozzarella, provola aff., lattuga, pom. ciliegini</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Super speedy</span><span class="item-price">€ 12,00</span></div><div class="item-desc">s. pomodoro, mozzarella, prosc. cotto, funghi, wurstel, melanzane, zucchine, tonno</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Vegetariana</span><span class="item-price">€ 9,50</span></div><div class="item-desc">s. pomodoro, mozzarella, melanzane, zucchine, peperoni</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Viola</span><span class="item-price">€ 12,00</span></div><div class="item-desc">s. pomodoro, mozzarella, gorgonzola, speck, radicchio</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Vivia</span><span class="item-price">€ 11,00</span></div><div class="item-desc">s. pomodoro, mozzarella, sals. fresca, patate arrosto, rosmarino</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Wurstel</span><span class="item-price">€ 8,00</span></div><div class="item-desc">s. pomodoro, mozzarella, wurstel</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">4 Formaggi</span><span class="item-price">€ 9,00</span></div><div class="item-desc">s. pomodoro, mozzarella, gorgonzola, Emmenthal, fontina</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">4 Stagioni</span><span class="item-price">€ 10,00</span></div><div class="item-desc">s. pomodoro, mozzarella, prosc. cotto, funghi, carciofini, olive</div></div>
+            </div>
+
+            <div class="note-box">
+                <p><strong>Varianti:</strong></p>
+                <p>• Pizza celiaca (base surgelata) Margherita: <strong>+ € 2,00</strong></p>
+                <p>• Mozzarella AD (Alta Digeribilità): <strong>+ € 1,50</strong></p>
+                <p>• Tutte le pizze modificate avranno una maggiorazione di <strong>1/2 €</strong> per ogni ingrediente aggiunto.</p>
+            </div>
+        </div>
+
+        <!-- VINI E BEVANDE -->
+        <div id="vini-bevande" class="tab-content">
+            <h2 class="section-title">Selezione Vigneti Neapolis</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Brivido Bianco</span><span class="item-price">€ 18,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Brivido Rosso</span><span class="item-price">€ 20,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Brivido Gold</span><span class="item-price">€ 20,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Brivido d'Autunno</span><span class="item-price">€ 30,00</span></div></div>
+            </div>
+
+            <h2 class="section-title">Vini Bianchi</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Brivido Vermentino Vigneti Neapolis Arbus</span><span class="item-price">€ 18,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Brivido Gold Vermentino Vigneti Neapolis Arbus</span><span class="item-price">€ 20,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Costamolino Vermentino C.S. Argiolas Cantina Serdiana</span><span class="item-price">€ 18,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Costamolino cl. 375 Vermentino C.S. Argiolas Cantina Serdiana</span><span class="item-price">€ 10,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Funtanaliras C.S. Monti Cantina di Alghero</span><span class="item-price">€ 20,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Karmis Vermentino C.S. Contini Cantina di Cabras (OR)</span><span class="item-price">€ 20,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Tuvaoes Vermentino C.S. Cherchi Usini</span><span class="item-price">€ 28,00</span></div></div>
+            </div>
+
+            <h2 class="section-title">Vini Rossi</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Brivido Rosso Vigneti Neapolis</span><span class="item-price">€ 20,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Perdera cl. 375 Monica C.S. Argiolas Cantina di Serdiana</span><span class="item-price">€ 10,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Rocca Rubia cl. 375 Carignano C.S. Santadi Cantina di Santadi</span><span class="item-price">€ 15,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Rocca Rubia Carignano C.S. Santadi Cantina di Santadi</span><span class="item-price">€ 28,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Nepente Cannonau C.S. Cherchi Cantine di Usini</span><span class="item-price">€ 22,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Cagnulari C.S. Cherchi Cantine di Usini</span><span class="item-price">€ 26,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Grotta Rossa Carignano C.S. Santadi Cantina di Santadi</span><span class="item-price">€ 18,00</span></div></div>
+            </div>
+
+            <h2 class="section-title">Vini Rosati e Bollicine</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Nieddera Rosato C.S. Contini Cantina di Cabras (OR)</span><span class="item-price">€ 18,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Spumante Dolce o Brut</span><span class="item-price">€ 15,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Akènta Brut C.S. Santa Maria La Palma Alghero</span><span class="item-price">€ 25,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Akènta Rosé C.S. Santa Maria La Palma Alghero</span><span class="item-price">€ 25,00</span></div></div>
+            </div>
+
+            <h2 class="section-title">Bevande</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Acqua Minerale cl. 0,75</span><span class="item-price">€ 2,00</span></div><div class="item-desc">Naturale o Gassata</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Vino della Casa cl. 0,50</span><span class="item-price">€ 7,00</span></div><div class="item-desc">Rosso o Bianco</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Vino della Casa cl. 1</span><span class="item-price">€ 12,00</span></div><div class="item-desc">Rosso o Bianco</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Bibite in lattina cl. 33</span><span class="item-price">€ 2,50</span></div><div class="item-desc">Coca-Cola, Coca-Cola Light, Fanta, Sprite, Thè Limone, Thè Pesca</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Birra Ichnusa cl. 66</span><span class="item-price">€ 4,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Birra Ichnusa cl. 33</span><span class="item-price">€ 2,50</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Ichnusa Non Filtrata cl. 33</span><span class="item-price">€ 3,50</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Ichnusa Non Filtrata cl. 50</span><span class="item-price">€ 4,50</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Birra Heineken cl. 66</span><span class="item-price">€ 4,50</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Pozzo 5</span><span class="item-price">€ 10,00</span></div><div class="item-desc">Scura</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Pozzo 16</span><span class="item-price">€ 10,00</span></div><div class="item-desc">Bionda</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Pozzo 9</span><span class="item-price">€ 10,00</span></div><div class="item-desc">Rossa</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Pozzo 3</span><span class="item-price">€ 10,00</span></div><div class="item-desc">Castagne</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Pozzo 20</span><span class="item-price">€ 10,00</span></div><div class="item-desc">Speciale</div></div>
+            </div>
+        </div>
+
+        <!-- DESSERT -->
+        <div id="dessert" class="tab-content">
+            <h2 class="section-title">Dessert</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Seadas Miele o Zucchero</span><span class="item-price">€ 5,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Tiramisù</span><span class="item-price">€ 5,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Semifreddo Miele e Noci</span><span class="item-price">€ 5,00</span></div><div class="item-desc">Senza Glutine</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Sorbetto al Limone</span><span class="item-price">€ 4,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Panna Cotta</span><span class="item-price">€ 4,00</span></div><div class="item-desc">Cioccolato / Frutti di Bosco / Caramello</div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Frutta Mista</span><span class="item-price">€ 6,00</span></div></div>
+            </div>
+
+            <h2 class="section-title">Dessert Gelato</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div class="item-header"><span class="item-name">Limone</span><span class="item-price">€ 5,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Cocco</span><span class="item-price">€ 5,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Tartufo Bianco</span><span class="item-price">€ 5,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Tartufo Nero</span><span class="item-price">€ 5,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Coppa all'amarena</span><span class="item-price">€ 5,00</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Semifreddo Senza Glutine</span><span class="item-price">€ 5,00</span></div></div>
+            </div>
+        </div>
+
+        <!-- INFO & ALLERGENI -->
+        <div id="info" class="tab-content">
+            <div class="coperto-tag">Coperto: € 2.00</div>
+
+            <h2 class="section-title">Informazioni Allergeni</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.8rem;">
+                Piano di autocontrollo per la sicurezza alimentare (REV.01 DATA 06/09/2017). Informazione alla clientela inerente la presenza negli alimenti di ingredienti o coadiuvanti tecnologici considerati allergeni o dei loro derivati.
+            </p>
+
+            <ul class="allergen-list">
+                <li>1. Cereali contenenti glutine e prodotti derivati (grano, segale, orzo, farro, kamut)</li>
+                <li>2. Crostacei e prodotti a base di crostacei</li>
+                <li>3. Uova e prodotti a base di uova</li>
+                <li>4. Pesce e prodotti a base di pesce</li>
+                <li>5. Arachidi e prodotti a base di arachidi</li>
+                <li>6. Soia e prodotti a base di soia</li>
+                <li>7. Latte e prodotti a base di latte</li>
+                <li>8. Frutta a guscio (mandorle, nocciole, noci, anacardi, pecan, Brasile, pistacchi, macadamia)</li>
+                <li>9. Sedano e prodotti a base di sedano</li>
+                <li>10. Senape e prodotti a base di senape</li>
+                <li>11. Semi di sesamo e prodotti a base di sesamo</li>
+                <li>12. Solfiti in concentrazioni superiori a 10 mg/kg</li>
+                <li>13. Lupini e prodotti a base di lupini</li>
+                <li>14. Molluschi e prodotti a base di molluschi</li>
+            </ul>
+
+            <div class="note-box" style="margin-top: 1.5rem; text-align: center;">
+                Il personale dell'Hotel Ristorante-pizzeria <strong>Soffio di Vento</strong> si rende a vostra disposizione per qualsiasi informazione o esigenza.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
